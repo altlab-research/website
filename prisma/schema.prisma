@@ -1,0 +1,117 @@
+// AltLab Database Schema
+// Run `npx prisma db push` once DATABASE_URL is set to your Supabase Postgres connection string.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ExperimentStatus {
+  RUNNING
+  COMPLETED
+  RESEARCH
+}
+
+enum ProjectStatus {
+  ACTIVE
+  ALPHA
+  RESEARCH
+}
+
+model Paper {
+  id            String   @id @default(cuid())
+  title         String
+  slug          String   @unique
+  abstract      String
+  authors       String[]
+  thumbnail     String?
+  pdfUrl        String?  @map("pdf_url")
+  githubUrl     String?  @map("github_url")
+  architectureUrl String? @map("architecture_url")
+  publishedAt   DateTime @map("published_at")
+  tags          String[]
+  content       String?
+  citations     Int      @default(0)
+  downloads     Int      @default(0)
+  views         Int      @default(0)
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  @@map("papers")
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  title     String
+  slug      String   @unique
+  cover     String?
+  excerpt   String?
+  content   String
+  tags      String[]
+  published Boolean  @default(true)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("posts")
+}
+
+model Project {
+  id          String        @id @default(cuid())
+  name        String
+  slug        String        @unique
+  tagline     String
+  description String
+  status      ProjectStatus @default(RESEARCH)
+  features    String[]
+  icon        String?
+  color       String?
+  githubUrl   String?       @map("github_url")
+  docsUrl     String?       @map("docs_url")
+  order       Int           @default(0)
+  createdAt   DateTime      @default(now()) @map("created_at")
+  updatedAt   DateTime      @updatedAt @map("updated_at")
+
+  @@map("projects")
+}
+
+model Experiment {
+  id          String            @id @default(cuid())
+  name        String
+  slug        String            @unique
+  description String
+  status      ExperimentStatus  @default(RESEARCH)
+  tags        String[]
+  progress    Int               @default(0)
+  createdAt   DateTime          @default(now()) @map("created_at")
+  updatedAt   DateTime          @updatedAt @map("updated_at")
+
+  @@map("experiments")
+}
+
+model CareerListing {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  department  String
+  location    String
+  type        String
+  description String
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@map("career_listings")
+}
+
+model AnalyticsEvent {
+  id        String   @id @default(cuid())
+  type      String
+  targetId  String?  @map("target_id")
+  metadata  Json?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("analytics_events")
+}
