@@ -33,11 +33,7 @@ export async function PATCH(request: NextRequest) {
     return NextResponse.json({ project });
   } catch (err) {
     return NextResponse.json(
-      {
-        error:
-          "Could not write to the database. Set DATABASE_URL and run `npx prisma db push` to enable persistence.",
-        details: err instanceof Error ? err.message : String(err),
-      },
+      { error: "Could not update project.", details: err instanceof Error ? err.message : String(err) },
       { status: 500 }
     );
   }

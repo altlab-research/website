@@ -7,13 +7,13 @@ export interface Paper {
   slug: string;
   abstract: string;
   authors: string[];
-  thumbnail?: string | null;
-  pdfUrl?: string | null;
-  githubUrl?: string | null;
-  architectureUrl?: string | null;
-  publishedAt: string;
+  thumbnail: string | null;
+  pdfUrl: string | null;
+  githubUrl: string | null;
+  architectureUrl: string | null;
+  publishedAt: Date | string;
   tags: string[];
-  content?: string;
+  content: string | null;
   citations: number;
   downloads: number;
   views: number;
@@ -23,11 +23,11 @@ export interface Post {
   id: string;
   title: string;
   slug: string;
-  cover?: string | null;
-  excerpt?: string;
+  cover: string | null;
+  excerpt: string | null;
   content: string;
   tags: string[];
-  createdAt: string;
+  createdAt: Date | string;
 }
 
 export interface Project {
@@ -38,10 +38,10 @@ export interface Project {
   description: string;
   status: ProjectStatus;
   features: string[];
-  icon: string;
-  color: string;
-  githubUrl?: string;
-  docsUrl?: string;
+  icon: string | null;
+  color: string | null;
+  githubUrl: string | null;
+  docsUrl: string | null;
 }
 
 export interface Experiment {

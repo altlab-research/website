@@ -16,7 +16,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const project = await getProjectBySlug(slug);
   if (!project) notFound();
 
-  const Icon = ICONS[project.icon] || Layers;
+  const Icon = ICONS[project.icon ?? ""] || Layers;
 
   return (
     <div className="mx-auto max-w-4xl px-5 py-14 md:px-8 md:py-20">
@@ -28,9 +28,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <div className="flex items-center gap-4">
           <div
             className="flex h-14 w-14 items-center justify-center rounded-xl"
-            style={{ backgroundColor: `${project.color}1A` }}
+            style={{ backgroundColor: `${project.color ?? "#6D5EF3"}1A` }}
           >
-            <Icon className="h-7 w-7" style={{ color: project.color }} />
+            <Icon className="h-7 w-7" style={{ color: project.color ?? "#6D5EF3" }} />
           </div>
           <div>
             <h1 className="font-display text-3xl font-bold md:text-4xl">{project.name}</h1>

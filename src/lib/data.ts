@@ -1,4 +1,5 @@
 import type { Paper, Post, Project, Experiment, CareerListing } from "@/types";
+import { prisma } from "@/lib/prisma";
 
 // ---------------------------------------------------------------------------
 // This file is the single data-access layer for the public site.
@@ -329,45 +330,42 @@ export const CAREERS: CareerListing[] = [
 ];
 
 // ---------------------------------------------------------------------------
-// Accessors — swap these bodies for Prisma calls when DATABASE_URL is live.
+// Accessors — these query the live database via Prisma. The arrays above
+// (PAPERS, PROJECTS, etc.) are kept only as reference content for
+// `prisma/seed.ts` — the functions below no longer read from them directly.
 // ---------------------------------------------------------------------------
 
 export async function getPapers(): Promise<Paper[]> {
-  // return prisma.paper.findMany({ orderBy: { publishedAt: "desc" } });
-  return [...PAPERS].sort((a, b) => +new Date(b.publishedAt) - +new Date(a.publishedAt));
+  return prisma.paper.findMany({ orderBy: { publishedAt: "desc" } });
 }
 
-export async function getPaperBySlug(slug: string): Promise<Paper | undefined> {
-  // return prisma.paper.findUnique({ where: { slug } });
-  return PAPERS.find((p) => p.slug === slug);
+export async function getPaperBySlug(slug: string): Promise<Paper | null> {
+  return prisma.paper.findUnique({ where: { slug } });
 }
 
 export async function getProjects(): Promise<Project[]> {
-  // return prisma.project.findMany({ orderBy: { order: "asc" } });
-  return PROJECTS;
+  return prisma.project.findMany({ orderBy: { order: "asc" } });
 }
 
-export async function getProjectBySlug(slug: string): Promise<Project | undefined> {
-  // return prisma.project.findUnique({ where: { slug } });
-  return PROJECTS.find((p) => p.slug === slug);
+export async function getProjectBySlug(slug: string): Promise<Project | null> {
+  return prisma.project.findUnique({ where: { slug } });
 }
 
 export async function getExperiments(): Promise<Experiment[]> {
-  // return prisma.experiment.findMany();
-  return EXPERIMENTS;
+  return prisma.experiment.findMany({ orderBy: { createdAt: "desc" } });
 }
 
 export async function getPosts(): Promise<Post[]> {
-  // return prisma.post.findMany({ where: { published: true }, orderBy: { createdAt: "desc" } });
-  return [...POSTS].sort((a, b) => +new Date(b.createdAt) - +new Date(a.createdAt));
+  return prisma.post.findMany({
+    where: { published: true },
+    orderBy: { createdAt: "desc" },
+  });
 }
 
-export async function getPostBySlug(slug: string): Promise<Post | undefined> {
-  // return prisma.post.findUnique({ where: { slug } });
-  return POSTS.find((p) => p.slug === slug);
+export async function getPostBySlug(slug: string): Promise<Post | null> {
+  return prisma.post.findUnique({ where: { slug } });
 }
 
 export async function getCareers(): Promise<CareerListing[]> {
-  // return prisma.careerListing.findMany({ where: { active: true } });
-  return CAREERS;
+  return prisma.careerListing.findMany({ where: { active: true } });
 }

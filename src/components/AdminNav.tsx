@@ -5,11 +5,9 @@ import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard,
   FileText,
-  Image as ImageIcon,
   Newspaper,
   FlaskConical,
   Boxes,
-  BarChart3,
   LogOut,
 } from "lucide-react";
 import Logo from "@/components/Logo";
@@ -17,12 +15,10 @@ import { createClient } from "@/lib/supabase/client";
 
 const NAV = [
   { href: "/admin/dashboard", label: "Overview", icon: LayoutDashboard },
-  { href: "/admin/dashboard#papers", label: "Papers", icon: FileText },
-  { href: "/admin/dashboard#homepage", label: "Homepage", icon: ImageIcon },
-  { href: "/admin/dashboard#blog", label: "Blog", icon: Newspaper },
-  { href: "/admin/dashboard#experiments", label: "Experiments", icon: FlaskConical },
-  { href: "/admin/dashboard#products", label: "Products", icon: Boxes },
-  { href: "/admin/dashboard#analytics", label: "Analytics", icon: BarChart3 },
+  { href: "/admin/dashboard/papers", label: "Papers", icon: FileText },
+  { href: "/admin/dashboard/blog", label: "Blog", icon: Newspaper },
+  { href: "/admin/dashboard/experiments", label: "Experiments", icon: FlaskConical },
+  { href: "/admin/dashboard/projects", label: "Products", icon: Boxes },
 ];
 
 export default function AdminNav() {

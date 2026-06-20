@@ -1,9 +1,7 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import {
   FileText,
-  Image as ImageIcon,
-  Upload,
-  GitBranch,
   Newspaper,
   FlaskConical,
   Boxes,
@@ -17,14 +15,10 @@ import { createClient } from "@/lib/supabase/server";
 import { getPapers, getPosts, getExperiments, getProjects } from "@/lib/data";
 
 const CAPABILITIES = [
-  { icon: FileText, label: "Publish Papers", desc: "Add new research papers with abstracts, authors, and tags." },
-  { icon: ImageIcon, label: "Edit Homepage", desc: "Update the hero copy, featured project, and stats." },
-  { icon: Upload, label: "Upload PDFs", desc: "Attach paper PDFs for direct download." },
-  { icon: Upload, label: "Upload Images", desc: "Manage thumbnails and cover images." },
-  { icon: GitBranch, label: "Upload Diagrams", desc: "Attach architecture diagrams to research papers." },
-  { icon: Newspaper, label: "Publish Blog", desc: "Write and publish new blog posts." },
-  { icon: FlaskConical, label: "Publish Experiments", desc: "Track in-progress experiments and their status." },
-  { icon: Boxes, label: "Edit Products", desc: "Update project descriptions, features, and status." },
+  { icon: FileText, label: "Publish Papers", desc: "Add new research papers with abstracts, authors, and tags.", href: "/admin/dashboard/papers/new" },
+  { icon: Newspaper, label: "Publish Blog", desc: "Write and publish new blog posts.", href: "/admin/dashboard/blog/new" },
+  { icon: FlaskConical, label: "Add Experiment", desc: "Track in-progress experiments and their status.", href: "/admin/dashboard/experiments/new" },
+  { icon: Boxes, label: "Edit Products", desc: "Update project descriptions, features, and status.", href: "/admin/dashboard/projects" },
 ];
 
 export default async function AdminDashboardPage() {
@@ -102,19 +96,19 @@ export default async function AdminDashboardPage() {
         <section className="mt-10">
           <h2 className="font-display text-lg font-semibold">Capabilities</h2>
           <p className="mt-1 text-sm text-muted">
-            Content actions are wired to mock data right now. Connect Supabase
-            Storage and Prisma to make these persist.
+            Manage your published content below — changes go straight to the database.
           </p>
           <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {CAPABILITIES.map((cap) => (
-              <button
+              <Link
                 key={cap.label}
-                className="card-surface rounded-xl p-5 text-left transition-all hover:-translate-y-0.5"
+                href={cap.href}
+                className="card-surface block rounded-xl p-5 text-left transition-all hover:-translate-y-0.5"
               >
                 <cap.icon className="h-5 w-5 text-primary" />
                 <p className="mt-3 text-sm font-semibold">{cap.label}</p>
                 <p className="mt-1 text-xs text-muted">{cap.desc}</p>
-              </button>
+              </Link>
             ))}
           </div>
         </section>

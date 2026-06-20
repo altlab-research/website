@@ -11,7 +11,7 @@ const ICONS: Record<string, LucideIcon> = {
 };
 
 export default function ProjectCard({ project }: { project: Project }) {
-  const Icon = ICONS[project.icon] || Layers;
+  const Icon = ICONS[project.icon ?? ""] || Layers;
 
   return (
     <Link
@@ -21,9 +21,9 @@ export default function ProjectCard({ project }: { project: Project }) {
       <div className="flex items-start justify-between">
         <div
           className="flex h-11 w-11 items-center justify-center rounded-lg"
-          style={{ backgroundColor: `${project.color}1A` }}
+          style={{ backgroundColor: `${project.color ?? "#6D5EF3"}1A` }}
         >
-          <Icon className="h-5 w-5" style={{ color: project.color }} />
+          <Icon className="h-5 w-5" style={{ color: project.color ?? "#6D5EF3" }} />
         </div>
         <StatusBadge status={project.status} />
       </div>

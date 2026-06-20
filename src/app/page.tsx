@@ -121,19 +121,25 @@ export default async function HomePage() {
 
           <div>
             <SectionLabel>Featured Project</SectionLabel>
-            <Link
-              href={`/projects/${featured.slug}`}
-              className="card-surface block rounded-xl p-6 transition-all hover:-translate-y-0.5"
-            >
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-                <Layers className="h-6 w-6 text-primary" />
+            {featured ? (
+              <Link
+                href={`/projects/${featured.slug}`}
+                className="card-surface block rounded-xl p-6 transition-all hover:-translate-y-0.5"
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
+                  <Layers className="h-6 w-6 text-primary" />
+                </div>
+                <h3 className="mt-4 font-display text-lg font-semibold">{featured.name}</h3>
+                <p className="mt-2 text-sm text-muted">{featured.description}</p>
+                <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary">
+                  View Project <ArrowRight className="h-3.5 w-3.5" />
+                </span>
+              </Link>
+            ) : (
+              <div className="card-surface rounded-xl p-6 text-sm text-muted">
+                No products published yet.
               </div>
-              <h3 className="mt-4 font-display text-lg font-semibold">{featured.name}</h3>
-              <p className="mt-2 text-sm text-muted">{featured.description}</p>
-              <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary">
-                View Project <ArrowRight className="h-3.5 w-3.5" />
-              </span>
-            </Link>
+            )}
 
             <div className="card-surface mt-4 grid grid-cols-2 gap-px overflow-hidden rounded-xl">
               {stats.map((s) => (
