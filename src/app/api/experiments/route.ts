@@ -4,8 +4,12 @@ import { prisma } from "@/lib/prisma";
 import { createClient } from "@/lib/supabase/server";
 
 export const dynamic = 'force-dynamic';
+<<<<<<< HEAD
 export const runtime = 'nodejs';
 
+=======
+export const runtime = 'edge'; // Optional: for better performance with Supabase
+>>>>>>> 5ecaf512e10331464b73ef9dd7624a741948fbdd
 
 export async function GET() {
   const experiments = await getExperiments();
