@@ -3,6 +3,9 @@ import { getPosts } from "@/lib/data";
 import { prisma } from "@/lib/prisma";
 import { createClient } from "@/lib/supabase/server";
 
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 export async function GET() {
   const posts = await getPosts();
   return NextResponse.json({ posts });

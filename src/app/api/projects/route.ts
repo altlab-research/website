@@ -3,6 +3,9 @@ import { getProjects } from "@/lib/data";
 import { prisma } from "@/lib/prisma";
 import { createClient } from "@/lib/supabase/server";
 
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 export async function GET() {
   const projects = await getProjects();
   return NextResponse.json({ projects });
