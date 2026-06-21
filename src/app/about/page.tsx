@@ -40,8 +40,7 @@ export default function AboutPage() {
           </div>
           <div className="mt-8 flex items-center gap-4">
             <a
-              href="https://x.com/altlabresearch"
-              target="_blank"
+              href="https://x.com/altlabresearch"              target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-ink transition-colors"
             >

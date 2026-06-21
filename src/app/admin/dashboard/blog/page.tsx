@@ -42,7 +42,15 @@ export default async function AdminBlogPage() {
                   {formatDate(post.createdAt)} &middot; /{post.slug}
                 </p>
               </div>
-              <DeleteButton endpoint="/api/posts" id={post.id} />
+              <div className="flex items-center gap-2">
+                <Link
+                  href={`/admin/dashboard/blog/${post.id}/edit`}
+                  className="rounded-lg border border-border px-3 py-1.5 text-xs font-medium hover:border-primary/50 hover:text-primary"
+                >
+                  Edit
+                </Link>
+                <DeleteButton endpoint="/api/posts" id={post.id} />
+              </div>
             </div>
           ))}
         </div>

@@ -6,10 +6,16 @@ import { createClient } from "@/lib/supabase/server";
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const id = request.nextUrl.searchParams.get("id");
+  if (id) {
+    const post = await prisma.post.findUnique({ where: { id } });
+    return NextResponse.json({ post });
+  }
   const posts = await getPosts();
   return NextResponse.json({ posts });
 }
+
 
 export async function POST(request: NextRequest) {
   const supabase = await createClient();
@@ -38,6 +44,36 @@ export async function POST(request: NextRequest) {
   } catch (err) {
     return NextResponse.json(
       { error: "Could not create post.", details: err instanceof Error ? err.message : String(err) },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PATCH(request: NextRequest) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const id = request.nextUrl.searchParams.get("id");
+  if (!id) return NextResponse.json({ error: "Missing id" }, { status: 400 });
+
+  const body = await request.json();
+  try {
+    const post = await prisma.post.update({
+      where: { id },
+      data: {
+        title: body.title,
+        slug: body.slug,
+        cover: body.cover,
+        excerpt: body.excerpt,
+        content: body.content,
+        tags: body.tags ?? [],
+      },
+    });
+    return NextResponse.json({ post });
+  } catch (err) {
+    return NextResponse.json(
+      { error: "Could not update post.", details: err instanceof Error ? err.message : String(err) },
       { status: 500 }
     );
   }

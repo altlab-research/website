@@ -6,7 +6,6 @@ import { createClient } from "@/lib/supabase/server";
 import { getPapers } from "@/lib/data";
 import DeleteButton from "@/components/admin/DeleteButton";
 import { formatDate } from "@/lib/utils";
-
 export default async function AdminPapersPage() {
   const supabase = await createClient();
   const {
@@ -42,7 +41,15 @@ export default async function AdminPapersPage() {
                   {formatDate(paper.publishedAt)} &middot; /{paper.slug}
                 </p>
               </div>
-              <DeleteButton endpoint="/api/papers" id={paper.id} />
+              <div className="flex items-center gap-2">
+                <Link
+                  href={`/admin/dashboard/papers/${paper.id}/edit`}
+                  className="rounded-lg border border-border px-3 py-1.5 text-xs font-medium hover:border-primary/50 hover:text-primary"
+                >
+                  Edit
+                </Link>
+                <DeleteButton endpoint="/api/papers" id={paper.id} />
+              </div>
             </div>
           ))}
         </div>

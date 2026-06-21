@@ -43,7 +43,15 @@ export default async function AdminExperimentsPage() {
                 </div>
                 <p className="mt-1 text-xs text-muted">{experiment.progress}% complete</p>
               </div>
-              <DeleteButton endpoint="/api/experiments" id={experiment.id} />
+              <div className="flex items-center gap-2">
+                <Link
+                  href={`/admin/dashboard/experiments/${experiment.id}/edit`}
+                  className="rounded-lg border border-border px-3 py-1.5 text-xs font-medium hover:border-primary/50 hover:text-primary"
+                >
+                  Edit
+                </Link>
+                <DeleteButton endpoint="/api/experiments" id={experiment.id} />
+              </div>
             </div>
           ))}
         </div>

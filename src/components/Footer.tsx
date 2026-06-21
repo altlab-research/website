@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Logo from "./Logo";
-import { Github, Twitter, Linkedin } from "lucide-react";
+import { Github, Twitter } from "lucide-react";
 
 const COLUMNS = [
   {
@@ -45,14 +45,11 @@ export default function Footer() {
               orchestration, runtimes, and intelligent operating systems.
             </p>
             <div className="mt-5 flex gap-4">
-              <a href="https://github.com/altlab" target="_blank" rel="noreferrer" className="text-muted hover:text-ink">
+              <a href="https://github.com/altlab-research" target="_blank" rel="noreferrer" className="text-muted hover:text-ink">
                 <Github className="h-5 w-5" />
               </a>
-              <a href="https://twitter.com/altlab" target="_blank" rel="noreferrer" className="text-muted hover:text-ink">
+              <a href="https://x.com/altlabresearch" target="_blank" rel="noreferrer" className="text-muted hover:text-ink">
                 <Twitter className="h-5 w-5" />
-              </a>
-              <a href="https://linkedin.com/company/altlab" target="_blank" rel="noreferrer" className="text-muted hover:text-ink">
-                <Linkedin className="h-5 w-5" />
               </a>
             </div>
           </div>
