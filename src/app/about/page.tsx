@@ -38,46 +38,46 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
+          <div className="mt-8 flex items-center gap-4">
+            <a
+              href="https://x.com/altlabresearch"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-ink transition-colors"
+            >
+              <Twitter className="h-4 w-4" />
+              <span>@altlabresearch</span>
+            </a>
+            <a
+              href="https://github.com/altlab-research"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-ink transition-colors"
+            >
+              <Github className="h-4 w-4" />
+              <span>altlab-research</span>
+            </a>
+          </div>
         </div>
       </section>
 
       <section className="mx-auto max-w-5xl px-5 pb-20 md:px-8">
         <SectionLabel>Founder</SectionLabel>
         <div className="card-surface flex flex-col items-start gap-6 rounded-2xl p-8 sm:flex-row sm:items-center md:p-10">
-          <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-full ring-2 ring-primary/20">
+          <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-full">
             <Image
               src="/founder.jpg"
               alt="Faruq Adegboyega"
-              width={80}
-              height={80}
+              width={64}
+              height={64}
               className="h-full w-full object-cover"
             />
           </div>
-          <div className="flex-1">
+          <div>
             <h3 className="font-display text-lg font-semibold">Faruq Adegboyega</h3>
             <p className="mt-1 text-sm text-muted">
               Building the future infrastructure for intelligent systems.
             </p>
-            <div className="mt-3 flex items-center gap-4">
-              <a
-                href="https://x.com/altlabresearch"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-ink transition-colors"
-              >
-                <Twitter className="h-4 w-4" />
-                <span>@altlabresearch</span>
-              </a>
-              <a
-                href="https://github.com/altlab-research"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-ink transition-colors"
-              >
-                <Github className="h-4 w-4" />
-                <span>altlab-research</span>
-              </a>
-            </div>
           </div>
         </div>
       </section>
