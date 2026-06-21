@@ -4,11 +4,12 @@ import { ArrowLeft, Github, BookOpen, Check, Layers, Workflow, Cpu, Sparkles, ty
 import { getProjects, getProjectBySlug } from "@/lib/data";
 import { StatusBadge } from "@/components/Badge";
 
+export const dynamic = 'force-dynamic';
+
 const ICONS: Record<string, LucideIcon> = { Layers, Workflow, Cpu, Sparkles };
 
 export async function generateStaticParams() {
-  const projects = await getProjects();
-  return projects.map((p) => ({ slug: p.slug }));
+  return [];
 }
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {

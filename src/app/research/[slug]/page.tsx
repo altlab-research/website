@@ -5,9 +5,10 @@ import { getPapers, getPaperBySlug } from "@/lib/data";
 import { Tag } from "@/components/Badge";
 import { formatDate } from "@/lib/utils";
 
+export const dynamic = 'force-dynamic';
+
 export async function generateStaticParams() {
-  const papers = await getPapers();
-  return papers.map((p) => ({ slug: p.slug }));
+  return [];
 }
 
 export default async function PaperPage({ params }: { params: Promise<{ slug: string }> }) {

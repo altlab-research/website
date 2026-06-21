@@ -3,6 +3,8 @@ import { SectionLabel, Tag } from "@/components/Badge";
 import { getPapers } from "@/lib/data";
 import { formatDate } from "@/lib/utils";
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = { title: "Publications — AltLab" };
 
 export default async function PublicationsPage() {

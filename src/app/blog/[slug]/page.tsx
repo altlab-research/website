@@ -5,9 +5,10 @@ import { getPosts, getPostBySlug } from "@/lib/data";
 import { Tag } from "@/components/Badge";
 import { formatDate } from "@/lib/utils";
 
+export const dynamic = 'force-dynamic';
+
 export async function generateStaticParams() {
-  const posts = await getPosts();
-  return posts.map((p) => ({ slug: p.slug }));
+  return [];
 }
 
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {

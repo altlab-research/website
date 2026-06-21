@@ -2,6 +2,8 @@ import { SectionLabel } from "@/components/Badge";
 import ResearchCard from "@/components/ResearchCard";
 import { getPapers } from "@/lib/data";
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = { title: "Research — AltLab" };
 
 export default async function ResearchPage() {

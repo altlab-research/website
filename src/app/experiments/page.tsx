@@ -2,6 +2,8 @@ import { SectionLabel } from "@/components/Badge";
 import ExperimentCard from "@/components/ExperimentCard";
 import { getExperiments } from "@/lib/data";
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = { title: "Labs — AltLab" };
 
 export default async function ExperimentsPage() {

@@ -2,6 +2,8 @@ import { SectionLabel } from "@/components/Badge";
 import BlogCard from "@/components/BlogCard";
 import { getPosts } from "@/lib/data";
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = { title: "Blog — AltLab" };
 
 export default async function BlogPage() {

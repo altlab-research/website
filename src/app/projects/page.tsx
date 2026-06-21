@@ -2,6 +2,8 @@ import { SectionLabel } from "@/components/Badge";
 import ProjectCard from "@/components/ProjectCard";
 import { getProjects } from "@/lib/data";
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = { title: "Projects — AltLab" };
 
 export default async function ProjectsPage() {
