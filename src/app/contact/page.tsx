@@ -1,9 +1,12 @@
 import { SectionLabel } from "@/components/Badge";
-import { Mail, Github, Twitter } from "lucide-react";
+import { Mail, Github, Twitter, CheckCircle } from "lucide-react";
 
+export const dynamic = 'force-dynamic';
 export const metadata = { title: "Contact — AltLab" };
 
-export default function ContactPage() {
+export default async function ContactPage({ searchParams }: { searchParams: Promise<{ sent?: string }> }) {
+  const { sent } = await searchParams;
+
   return (
     <div className="mx-auto max-w-3xl px-5 py-14 md:px-8 md:py-20">
       <SectionLabel>Contact</SectionLabel>
@@ -11,6 +14,13 @@ export default function ContactPage() {
       <p className="mt-3 max-w-xl text-muted">
         Have a question, want to collaborate, or just want to say hello? Reach out — we read every message.
       </p>
+
+      {sent === "true" && (
+        <div className="mt-6 flex items-center gap-3 rounded-xl border border-green-500/30 bg-green-500/10 px-5 py-4">
+          <CheckCircle className="h-5 w-5 flex-shrink-0 text-green-400" />
+          <p className="text-sm font-medium text-green-300">Message sent! We&apos;ll get back to you soon.</p>
+        </div>
+      )}
 
       <div className="mt-10 grid gap-4 sm:grid-cols-3">
         <a
@@ -67,52 +77,30 @@ export default function ContactPage() {
           method="POST"
           className="mt-6 space-y-4"
         >
-          {/* Disable captcha and redirect */}
           <input type="hidden" name="_captcha" value="false" />
           <input type="hidden" name="_subject" value="New message from AltLab website" />
           <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_next" value={`${process.env.NEXT_PUBLIC_SITE_URL}/contact?sent=true`} />
 
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="block">
               <span className="text-xs font-medium text-muted">Name</span>
-              <input
-                name="name"
-                required
-                placeholder="Your name"
-                className="input mt-1.5"
-              />
+              <input name="name" required placeholder="Your name" className="input mt-1.5" />
             </label>
             <label className="block">
               <span className="text-xs font-medium text-muted">Email</span>
-              <input
-                name="email"
-                type="email"
-                required
-                placeholder="you@example.com"
-                className="input mt-1.5"
-              />
+              <input name="email" type="email" required placeholder="you@example.com" className="input mt-1.5" />
             </label>
           </div>
 
           <label className="block">
             <span className="text-xs font-medium text-muted">Subject</span>
-            <input
-              name="subject"
-              required
-              placeholder="What's this about?"
-              className="input mt-1.5"
-            />
+            <input name="subject" required placeholder="What's this about?" className="input mt-1.5" />
           </label>
 
           <label className="block">
             <span className="text-xs font-medium text-muted">Message</span>
-            <textarea
-              name="message"
-              required
-              rows={5}
-              placeholder="Your message..."
-              className="input mt-1.5"
-            />
+            <textarea name="message" required rows={5} placeholder="Your message..." className="input mt-1.5" />
           </label>
 
           <button
