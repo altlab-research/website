@@ -23,7 +23,15 @@ export default function NewPaperPage() {
   const [authors, setAuthors] = useState("");
   const [tags, setTags] = useState("");
   const [pdfUrl, setPdfUrl] = useState("");
+  const [paperPdf, setPaperPdf] = useState("");
   const [githubUrl, setGithubUrl] = useState("");
+  const [demoUrl, setDemoUrl] = useState("");
+  const [architectureUrl, setArchitectureUrl] = useState("");
+  const [architectureImageUrl, setArchitectureImageUrl] = useState("");
+  const [status, setStatus] = useState("published");
+  const [researchArea, setResearchArea] = useState("");
+  const [featured, setFeatured] = useState(false);
+  const [publishedAt, setPublishedAt] = useState(new Date().toISOString().slice(0, 10));
   const [content, setContent] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -43,9 +51,16 @@ export default function NewPaperPage() {
         authors: authors.split(",").map((a) => a.trim()).filter(Boolean),
         tags: tags.split(",").map((t) => t.trim()).filter(Boolean),
         pdfUrl: pdfUrl || undefined,
+        paperPdf: paperPdf || undefined,
         githubUrl: githubUrl || undefined,
+        demoUrl: demoUrl || undefined,
+        architectureUrl: architectureUrl || undefined,
+        architectureImageUrl: architectureImageUrl || undefined,
+        status,
+        researchArea: researchArea || undefined,
+        featured,
+        publishedAt: publishedAt ? new Date(publishedAt).toISOString() : new Date().toISOString(),
         content: content || undefined,
-        publishedAt: new Date().toISOString(),
       }),
     });
 
@@ -87,22 +102,13 @@ export default function NewPaperPage() {
             <input
               required
               value={slug}
-              onChange={(e) => {
-                setSlug(e.target.value);
-                setSlugTouched(true);
-              }}
+              onChange={(e) => { setSlug(e.target.value); setSlugTouched(true); }}
               className="input"
             />
           </Field>
 
           <Field label="Abstract">
-            <textarea
-              required
-              rows={4}
-              value={abstract}
-              onChange={(e) => setAbstract(e.target.value)}
-              className="input"
-            />
+            <textarea required rows={4} value={abstract} onChange={(e) => setAbstract(e.target.value)} className="input" />
           </Field>
 
           <Field label="Authors (comma separated)">
@@ -114,15 +120,59 @@ export default function NewPaperPage() {
           </Field>
 
           <div className="grid grid-cols-2 gap-4">
-            <Field label="PDF URL">
-              <input value={pdfUrl} onChange={(e) => setPdfUrl(e.target.value)} className="input" placeholder="#" />
+            <Field label="Status">
+              <select value={status} onChange={(e) => setStatus(e.target.value)} className="input">
+                <option value="published">Published</option>
+                <option value="draft">Draft</option>
+                <option value="archived">Archived</option>
+              </select>
             </Field>
-            <Field label="GitHub URL">
-              <input value={githubUrl} onChange={(e) => setGithubUrl(e.target.value)} className="input" placeholder="https://github.com/..." />
+            <Field label="Research Area">
+              <input value={researchArea} onChange={(e) => setResearchArea(e.target.value)} className="input" placeholder="Memory Systems" />
             </Field>
           </div>
 
-          <Field label="Full content (markdown-ish, optional)">
+          <Field label="Published At">
+            <input type="date" value={publishedAt} onChange={(e) => setPublishedAt(e.target.value)} className="input" />
+          </Field>
+
+          <div className="grid grid-cols-2 gap-4">
+            <Field label="PDF URL">
+              <input value={pdfUrl} onChange={(e) => setPdfUrl(e.target.value)} className="input" placeholder="https://..." />
+            </Field>
+            <Field label="Paper PDF (direct file URL)">
+              <input value={paperPdf} onChange={(e) => setPaperPdf(e.target.value)} className="input" placeholder="https://..." />
+            </Field>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <Field label="GitHub URL">
+              <input value={githubUrl} onChange={(e) => setGithubUrl(e.target.value)} className="input" placeholder="https://github.com/..." />
+            </Field>
+            <Field label="Demo URL">
+              <input value={demoUrl} onChange={(e) => setDemoUrl(e.target.value)} className="input" placeholder="https://..." />
+            </Field>
+          </div>
+
+          <Field label="Architecture Image URL">
+            <input value={architectureImageUrl} onChange={(e) => setArchitectureImageUrl(e.target.value)} className="input" placeholder="https://... (shown above abstract)" />
+          </Field>
+
+          <Field label="Architecture Diagram URL (link)">
+            <input value={architectureUrl} onChange={(e) => setArchitectureUrl(e.target.value)} className="input" placeholder="https://..." />
+          </Field>
+
+          <label className="flex items-center gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={featured}
+              onChange={(e) => setFeatured(e.target.checked)}
+              className="h-4 w-4 rounded border-border accent-primary"
+            />
+            <span className="text-sm font-medium">Featured paper</span>
+          </label>
+
+          <Field label="Full content (markdown, optional)">
             <textarea rows={8} value={content} onChange={(e) => setContent(e.target.value)} className="input" />
           </Field>
 

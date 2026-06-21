@@ -31,11 +31,17 @@ export async function POST(request: NextRequest) {
         abstract: body.abstract,
         authors: body.authors ?? [],
         pdfUrl: body.pdfUrl,
+        paperPdf: body.paperPdf,
         githubUrl: body.githubUrl,
+        demoUrl: body.demoUrl,
         architectureUrl: body.architectureUrl,
+        architectureImageUrl: body.architectureImageUrl,
         publishedAt: body.publishedAt ? new Date(body.publishedAt) : new Date(),
         tags: body.tags ?? [],
         content: body.content,
+        status: body.status ?? "published",
+        researchArea: body.researchArea,
+        featured: body.featured ?? false,
       },
     });
     return NextResponse.json({ paper }, { status: 201 });
