@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { Pencil } from "lucide-react";
+import { Pencil, Plus } from "lucide-react";
 import AdminNav from "@/components/AdminNav";
 import { createClient } from "@/lib/supabase/server";
 import { getProjects } from "@/lib/data";
 import { StatusBadge } from "@/components/Badge";
+import DeleteButton from "@/components/admin/DeleteButton";
 
 export default async function AdminProjectsPage() {
   const supabase = await createClient();
@@ -19,12 +20,20 @@ export default async function AdminProjectsPage() {
     <div className="flex flex-col md:flex-row">
       <AdminNav />
       <div className="flex-1 px-5 py-8 md:px-10 md:py-10">
-        <h1 className="font-display text-2xl font-bold">Products</h1>
-        <p className="mt-1 text-sm text-muted">
-          AltMemory, AltFlow, AltRuntime, and AltOS are fixed product pages — edit their copy and status here.
-        </p>
+        <div className="flex items-center justify-between">
+          <h1 className="font-display text-2xl font-bold">Products</h1>
+          <Link
+            href="/admin/dashboard/projects/new"
+            className="inline-flex items-center gap-1.5 rounded-lg bg-gradient-primary px-4 py-2 text-sm font-semibold text-white"
+          >
+            <Plus className="h-4 w-4" /> New Product
+          </Link>
+        </div>
 
         <div className="card-surface mt-6 divide-y divide-border rounded-xl">
+          {projects.length === 0 && (
+            <p className="p-6 text-sm text-muted">No products yet. Add your first one.</p>
+          )}
           {projects.map((project) => (
             <div key={project.id} className="flex items-center justify-between gap-4 p-4">
               <div className="min-w-0">
@@ -34,12 +43,15 @@ export default async function AdminProjectsPage() {
                 </div>
                 <p className="mt-1 text-xs text-muted">{project.tagline}</p>
               </div>
-              <Link
-                href={`/admin/dashboard/projects/${project.slug}`}
-                className="flex-shrink-0 rounded-lg border border-border p-2 text-muted transition-colors hover:border-primary/50 hover:text-ink"
-              >
-                <Pencil className="h-4 w-4" />
-              </Link>
+              <div className="flex items-center gap-2">
+                <Link
+                  href={`/admin/dashboard/projects/${project.slug}`}
+                  className="flex-shrink-0 rounded-lg border border-border p-2 text-muted transition-colors hover:border-primary/50 hover:text-ink"
+                >
+                  <Pencil className="h-4 w-4" />
+                </Link>
+                <DeleteButton endpoint="/api/projects" id={project.id} />
+              </div>
             </div>
           ))}
         </div>
